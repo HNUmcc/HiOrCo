@@ -62,6 +62,7 @@ def compute(data, k=2, n=10, p=100, part_size=100, abundance_cutoff=0.001, min_s
         # compute FDR
         scores["significant"], _ = fdrcorrection(scores["p_value"], alpha=fdr_cutoff)
         scores["final"] = np.sqrt(scores["total"])
+        
 
         #filter FDR and min occurrence threshold
         selected = scores.query("significant and total >= @min_samples and total >= @fold_cutoff * expected")
@@ -106,3 +107,4 @@ def save_output(results, output_folder, i, part_size):
             filename = f"{output_folder}/size_{i}_part_{l+1}.tsv"
             df_k.to_csv(filename, sep='\t', index=False, header=False)
             comms = []
+scores.to_csv(filename)
